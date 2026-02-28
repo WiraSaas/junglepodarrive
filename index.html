@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JunglePod 🪴</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #0f1412;
+            --text-primary: #e8e6e1;
+            --text-secondary: #9aa8a2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            width: 100%; height: 100%; overflow: hidden;
+            background-color: var(--bg-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-primary);
+        }
+
+        .tropical-bg {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-image: url('https://cdn.pixabay.com/photo/2021/06/20/14/23/tropical-6351119_1280.jpg');
+            background-size: cover; background-position: center;
+            background-repeat: no-repeat; z-index: 1;
+        }
+
+        .overlay-dark {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(15, 20, 18, 0.6);
+            z-index: 2; pointer-events: none;
+        }
+
+        .linen-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh; z-index: 3;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+            animation: drift 60s linear infinite alternate;
+            pointer-events: none; mix-blend-mode: overlay;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(2%, 1%) rotate(1deg); }
+            100% { transform: translate(-2%, -1%) rotate(-1deg); }
+        }
+
+        .content-wrapper {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh; z-index: 10;
+            pointer-events: none; overflow: hidden;
+        }
+
+        .dynamic-text {
+            position: absolute;
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            white-space: nowrap;
+            pointer-events: none;
+            will-change: transform, opacity, top, left;
+        }
+
+        /* JunglePod - fade di tengah */
+        .a-center {
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem; font-weight: 400;
+            transition: opacity 2.5s ease-in-out;
+        }
+        .a-center.s { opacity: 1; }
+        .a-center.h { opacity: 0; }
+
+        /* Indie - dari kiri-atas ke kanan-bawah */
+        .a-tlbr {
+            top: 15%; left: 15%;
+            transform: translate(0, 0);
+            font-size: 3.5rem;
+            transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .a-tlbr.s { opacity: 1; }
+        .a-tlbr.h {
+            opacity: 0;
+            transform: translate(70vw, 70vh);
+        }
+
+        /* Software - dari kanan-atas ke kiri-bawah */
+        .a-trbl {
+            top: 15%; right: 15%;
+            transform: translate(0, 0);
+            font-size: 3.5rem;
+            transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .a-trbl.s { opacity: 1; }
+        .a-trbl.h {
+            opacity: 0;
+            transform: translate(-70vw, 70vh);
+        }
+
+        /* Creator - dari bawah ke tengah, lalu fade di tempat */
+        .a-bc {
+            top: 100vh;          /* mulai dari bawah layar */
+            left: 50vw;
+            transform: translate(-50%, -100%);
+            font-size: 4.5rem; font-weight: 500;
+            transition: all 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .a-bc.s {
+            opacity: 1;
+            top: 50vh;           /* naik ke tengah */
+            left: 50vw;
+            transform: translate(-50%, -50%);
+        }
+        .a-bc.h {
+            opacity: 0;           /* tetap di tengah, hanya fade */
+            top: 50vh;
+            left: 50vw;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Pesan terakhir */
+        .final-message {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.4rem; font-weight: 400; font-style: italic;
+            opacity: 0; transition: opacity 3s ease-in;
+            color: var(--text-secondary); text-align: center;
+            letter-spacing: 0.15em; pointer-events: none; width: 100%;
+        }
+        .final-message.show { opacity: 1; }
+
+        #start-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(15, 20, 18, 0.95); z-index: 100;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: opacity 1s ease;
+        }
+        #start-text {
+            font-size: 0.95rem; letter-spacing: 4px;
+            text-transform: uppercase; border: 1px solid var(--text-primary);
+            padding: 20px 45px; font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500; color: var(--text-primary); background: transparent;
+        }
+        #start-text:hover { background: rgba(232, 230, 225, 0.1); }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditative-ambient-11496.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="start-overlay" onclick="startExperience()">
+        <div id="start-text">Enter JunglePod</div>
+    </div>
+
+    <div class="tropical-bg"></div>
+    <div class="overlay-dark"></div>
+    <div class="linen-overlay"></div>
+
+    <div class="content-wrapper">
+        <div id="text-display" class="dynamic-text"></div>
+        <div id="final-display" class="final-message">JunglePod 🪴 — arriving in 2026</div>
+    </div>
+
+    <script>
+        const sequence = [
+            { text: "JunglePod 🪴", anim: "a-center" },
+            { text: "Indie",        anim: "a-tlbr" },
+            { text: "Software",     anim: "a-trbl" },
+            { text: "Creator",      anim: "a-bc" }
+        ];
+
+        const textEl = document.getElementById('text-display');
+        const finalEl = document.getElementById('final-display');
+        const music = document.getElementById('bg-music');
+        const overlay = document.getElementById('start-overlay');
+
+        music.volume = 0.4;
+
+        async function startExperience() {
+            try { await music.play(); } catch(e) {}
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                setTimeout(() => run(0), 500);
+            }, 1000);
+        }
+
+        function run(i) {
+            if (i >= sequence.length) { final(); return; }
+            const { text, anim } = sequence[i];
+
+            // --- RESET DENGAN TRANSISI DIMATIKAN SEMENTARA ---
+            textEl.style.transition = 'none';       // hindari transisi saat berpindah posisi awal
+            textEl.className = 'dynamic-text ' + anim;
+            textEl.textContent = text;
+            void textEl.offsetWidth;                // paksa reflow
+            textEl.style.transition = '';           // kembalikan transisi dari CSS
+
+            // Munculkan
+            setTimeout(() => textEl.classList.add('s'), 20);
+
+            // Durasi tampil acak (2.5 - 4 detik)
+            const stay = Math.random() * 1500 + 2500;
+
+            // Tentukan durasi hide sesuai animasi
+            let hideDuration = (anim === 'a-center' || anim === 'a-bc') ? 2500 : 2000;
+
+            // Hilangkan setelah stay
+            setTimeout(() => {
+                textEl.classList.remove('s');
+                textEl.classList.add('h');
+
+                // Panggil berikutnya setelah animasi hide selesai
+                setTimeout(() => run(i + 1), hideDuration);
+            }, stay);
+        }
+
+        function final() {
+            textEl.style.display = 'none';
+            finalEl.classList.add('show');
+        }
+    </script>
+</body>
+</html>
