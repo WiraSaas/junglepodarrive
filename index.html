@@ -139,6 +139,80 @@
         }
         .final-message.show { opacity: 1; }
 
+        /* Pop-up Story */
+        .story-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 20, 18, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s;
+            pointer-events: none;
+        }
+
+        .story-popup.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .story-content {
+            background: rgba(30, 35, 33, 0.9);
+            border: 1px solid rgba(232, 230, 225, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+            color: var(--text-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .story-content p {
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        .story-content p.warkop {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--text-primary);
+        }
+
         #start-overlay {
             position: fixed; top: 0; left: 0;
             width: 100vw; height: 100vh;
@@ -172,6 +246,17 @@
     <div class="content-wrapper">
         <div id="text-display" class="dynamic-text"></div>
         <div id="final-display" class="final-message">JunglePod 🪴 — arriving in 2026</div>
+        
+        <!-- Pop-up Story -->
+        <div id="story-popup" class="story-popup">
+            <div class="story-content">
+                <button class="close-btn" onclick="closePopup()">×</button>
+                <p>Dari tanah ke kode. 🪴💻</p>
+                <p class="warkop">(Jadi nyanyian kode ala Warkop DKI 😁)</p>
+                <p>Setelah bertahun-tahun di JunglePod -Urban Living Eco Lab-, saatnya "nyebrang" ke dunia digital sebagai Indie Software Creator. Intro sederhana ini saya bangun sendiri, belajar pelan-pelan tentang koordinat, transisi, dan logika CSS.</p>
+                <p>Sovereign Timing Management & Eco Tech lainnya sedang dalam oven. Semoga rampung di 2026! 🚀</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -186,6 +271,7 @@
         const finalEl = document.getElementById('final-display');
         const music = document.getElementById('bg-music');
         const overlay = document.getElementById('start-overlay');
+        const storyPopup = document.getElementById('story-popup');
 
         music.volume = 0.4;
 
@@ -231,6 +317,16 @@
         function final() {
             textEl.style.display = 'none';
             finalEl.classList.add('show');
+            
+            // Munculkan pop-up setelah 2 detik
+            setTimeout(() => {
+                storyPopup.classList.add('show');
+            }, 2000);
+        }
+
+        // Fungsi untuk menutup pop-up
+        function closePopup() {
+            storyPopup.classList.remove('show');
         }
     </script>
 </body>
