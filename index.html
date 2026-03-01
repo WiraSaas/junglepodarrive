@@ -190,6 +190,8 @@
             visibility: hidden;
             transition: opacity 0.8s ease, visibility 0.8s;
             pointer-events: none;
+            overflow-y: auto !important; /* Aktifkan scroll vertikal */
+            -webkit-overflow-scrolling: touch; /* Smooth scroll di iOS */
         }
 
         .story-popup.show {
@@ -204,11 +206,14 @@
             border-radius: 16px;
             padding: 2.5rem;
             max-width: 500px;
-            margin: 0 20px;
+            width: 90%;
+            margin: 20px auto;
             position: relative;
             color: var(--text-primary);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
+            max-height: 80vh !important; /* Batasi tinggi agar scroll muncul */
+            overflow-y: auto !important;
         }
 
         .story-content p {
@@ -266,22 +271,19 @@
            PERBAIKAN RESPONSIF UNTUK HP
            ============================================ */
         @media (max-width: 600px) {
-            /* Teks JunglePod dipaksa satu baris dengan ukuran proporsional */
             .a-center {
                 font-size: clamp(2.8rem, 8vw, 4rem) !important;
-                white-space: nowrap !important;   /* Satu baris */
+                white-space: nowrap !important;
                 max-width: 95vw !important;
                 left: 50% !important;
                 transform: translate(-50%, -50%) !important;
             }
-            /* Teks animasi lainnya juga disesuaikan */
             .a-tlbr, .a-trbl, .a-bc {
                 font-size: 2.5rem !important;
                 white-space: nowrap !important;
                 max-width: 80vw !important;
             }
 
-            /* Naikkan posisi teks akhir dan tombol */
             .final-message {
                 top: 45% !important;
                 margin-top: -10px;
@@ -293,18 +295,27 @@
                 padding: 6px 14px !important;
             }
 
-            /* Perbaiki pop-up agar bisa di-scroll di semua browser */
             .story-popup {
                 align-items: flex-start !important;
-                padding-top: 5vh !important;
-                overflow-y: auto !important;
+                padding-top: 2vh !important;
             }
             .story-content {
                 max-height: 70vh !important;
-                overflow-y: auto !important;
-                margin: 10vh auto !important;
-                width: 90% !important;
+                margin: 2vh auto !important;
                 padding: 1.5rem !important;
+            }
+        }
+
+        /* ============================================
+           PERBAIKAN KHUSUS FIREFOX
+           ============================================ */
+        @-moz-document url-prefix() {
+            .story-popup {
+                overflow-y: scroll !important;
+            }
+            .story-content {
+                max-height: 70vh !important;
+                overflow-y: scroll !important;
             }
         }
     </style>
