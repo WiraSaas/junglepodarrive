@@ -76,3 +76,6 @@ function closeAndReset() {
 window.startExperience = startExperience;
 window.closePopup = closePopup;
 window.closeAndReset = closeAndReset;
+window.startExperience = startExperience;
+window.closePopup = closePopup;
+window.closeAndReset = closeAndReset;
