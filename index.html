@@ -1,3 +1,153 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JunglePod 🪴</title><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');:root{--bg-dark:#0f1412;--text-primary:#e8e6e1;--text-secondary:#9aa8a2}*{margin:0;padding:0;box-sizing:border-box}body,html{width:100%;height:100%;overflow:hidden;background-color:var(--bg-dark);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text-primary)}.tropical-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;background-image:url('https://cdn.pixabay.com/photo/2021/06/20/14/23/tropical-6351119_1280.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:1}.overlay-dark{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,20,18,.6);z-index:2;pointer-events:none}.linen-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:3;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");animation:drift 60s linear infinite alternate;pointer-events:none;mix-blend-mode:overlay}@keyframes drift{0%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(2%,1%) rotate(1deg)}100%{transform:translate(-2%,-1%) rotate(-1deg)}}.content-wrapper{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10;pointer-events:none;overflow:hidden}.dynamic-text{position:absolute;font-size:4rem;font-weight:300;letter-spacing:-.01em;opacity:0;text-shadow:0 4px 30px rgba(0,0,0,.5);white-space:nowrap;pointer-events:none;will-change:transform,opacity,top,left}.a-center{top:50%;left:50%;transform:translate(-50%,-50%);font-size:5rem;font-weight:400;transition:opacity 2.5s ease-in-out}.a-center.s{opacity:1}.a-center.h{opacity:0}.a-tlbr{top:15%;left:15%;transform:translate(0);font-size:3.5rem;transition:all 2s cubic-bezier(.25,.46,.45,.94)}.a-tlbr.s{opacity:1}.a-tlbr.h{opacity:0;transform:translate(70vw,70vh)}.a-trbl{top:15%;right:15%;transform:translate(0);font-size:3.5rem;transition:all 2s cubic-bezier(.25,.46,.45,.94)}.a-trbl.s{opacity:1}.a-trbl.h{opacity:0;transform:translate(-70vw,70vh)}.a-bc{top:100vh;left:50vw;transform:translate(-50%,-100%);font-size:4.5rem;font-weight:500;transition:all 2.5s cubic-bezier(.25,.46,.45,.94)}.a-bc.s{opacity:1;top:50vh;left:50vw;transform:translate(-50%,-50%)}.a-bc.h{opacity:0;top:50vh;left:50vw;transform:translate(-50%,-50%)}.final-message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.4rem;font-weight:400;font-style:italic;opacity:0;transition:opacity 3s ease-in;color:var(--text-secondary);text-align:center;letter-spacing:.15em;pointer-events:none;width:100%;margin-bottom:40px}.final-message.show{opacity:1}.close-thanks-btn{position:absolute;top:60%;left:50%;transform:translate(-50%,-50%);background:0 0;border:1px solid var(--text-secondary);color:var(--text-secondary);padding:8px 18px;border-radius:40px;font-size:.9rem;font-weight:300;letter-spacing:.5px;cursor:pointer;opacity:0;transition:opacity .5s ease,background .3s,color .3s;pointer-events:none;z-index:50;white-space:nowrap}.close-thanks-btn.show{opacity:1;pointer-events:auto}.close-thanks-btn:hover{background:rgba(232,230,225,.1);color:var(--text-primary);border-color:var(--text-primary)}.story-popup{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,20,18,.85);backdrop-filter:blur(5px);z-index:200;display:flex;justify-content:center;align-items:center;opacity:0;visibility:hidden;transition:opacity .8s ease,visibility .8s;pointer-events:none;overflow-y:auto!important;-webkit-overflow-scrolling:touch}.story-popup.show{opacity:1;visibility:visible;pointer-events:auto}.story-content{background:rgba(30,35,33,.9);border:1px solid rgba(232,230,225,.2);border-radius:16px;padding:2.5rem;max-width:500px;width:90%;margin:20px auto;position:relative;color:var(--text-primary);box-shadow:0 20px 40px rgba(0,0,0,.4);backdrop-filter:blur(10px);max-height:80vh!important;overflow-y:auto!important}.story-content p{margin-bottom:1.2rem;line-height:1.6;font-size:1rem;font-weight:300;letter-spacing:.02em}.story-content p.warkop{font-style:italic;color:var(--text-secondary);font-size:.95rem}.close-btn{position:absolute;top:12px;right:16px;background:0 0;border:none;color:var(--text-secondary);font-size:1.8rem;cursor:pointer;padding:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center;transition:color .3s}.close-btn:hover{color:var(--text-primary)}#start-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,20,18,.95);z-index:100;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:opacity 1s ease}#start-text{font-size:.95rem;letter-spacing:4px;text-transform:uppercase;border:1px solid var(--text-primary);padding:20px 45px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;color:var(--text-primary);background:0 0}#start-text:hover{background:rgba(232,230,225,.1)}@media (max-width:600px){.a-center{font-size:clamp(2.8rem,8vw,4rem)!important;white-space:nowrap!important;max-width:95vw!important;left:50%!important;transform:translate(-50%,-50%)!important}.a-tlbr,.a-trbl,.a-bc{font-size:2.5rem!important;white-space:nowrap!important;max-width:80vw!important}.final-message{top:45%!important;margin-top:-10px;font-size:1.2rem!important}.close-thanks-btn{top:55%!important;font-size:.8rem!important;padding:6px 14px!important}.story-popup{align-items:flex-start!important;padding-top:2vh!important}.story-content{max-height:70vh!important;margin:2vh auto!important;padding:1.5rem!important}}@-moz-document url-prefix(){.story-popup{overflow-y:scroll!important}.story-content{max-height:70vh!important;overflow-y:scroll!important}}</style></head><body><audio id="bg-music" loop preload="auto"><source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditative-ambient-11496.mp3" type="audio/mpeg"></audio><div id="start-overlay" onclick="startExperience()"><div id="start-text">Enter JunglePod</div></div><div class="tropical-bg"></div><div class="overlay-dark"></div><div class="linen-overlay"></div><div class="content-wrapper"><div id="text-display" class="dynamic-text"></div><div id="final-display" class="final-message">JunglePod 🪴 — arriving in 2026</div><button id="close-thanks" class="close-thanks-btn" onclick="closeAndReset()">[x] close, terima kasih</button><div id="story-popup" class="story-popup"><div class="story-content"><button class="close-btn" onclick="closePopup()">×</button><p>Dari tanah ke kode. 🪴💻</p><p class="warkop">(Jadi nyanyian kode ala Warkop DKI 😁)</p><p>Setelah bertahun-tahun di JunglePod -Urban Living Eco Lab-, saatnya "nyebrang" ke dunia digital sebagai Indie Software Creator. Intro sederhana ini saya bangun sendiri, belajar pelan-pelan tentang koordinat, transisi, dan logika CSS.</p><p>Sovereign Timing Management & Eco Tech lainnya sedang dalam oven. Semoga rampung di 2026! 🚀</p></div></div></div><script>
-const sequence=[{text:"JunglePod 🪴",anim:"a-center"},{text:"Indie",anim:"a-tlbr"},{text:"Software",anim:"a-trbl"},{text:"Creator",anim:"a-bc"}];const textEl=document.getElementById('text-display');const finalEl=document.getElementById('final-display');const music=document.getElementById('bg-music');const overlay=document.getElementById('start-overlay');const storyPopup=document.getElementById('story-popup');const closeThanksBtn=document.getElementById('close-thanks');music.volume=0.4;async function startExperience(){try{await music.play()}catch(e){}overlay.style.opacity='0';setTimeout(()=>{overlay.style.display='none';setTimeout(()=>run(0),500)},1000)}function run(i){if(i>=sequence.length){final();return}const{text,anim}=sequence[i];textEl.style.transition='none';textEl.className='dynamic-text '+anim;textEl.textContent=text;void textEl.offsetWidth;textEl.style.transition='';setTimeout(()=>textEl.classList.add('s'),20);const stay=Math.random()*1500+2500;let hideDuration=(anim==='a-center'||anim==='a-bc')?2500:2000;setTimeout(()=>{textEl.classList.remove('s');textEl.classList.add('h');setTimeout(()=>run(i+1),hideDuration)},stay)}function final(){textEl.style.display='none';finalEl.classList.add('show');setTimeout(()=>{closeThanksBtn.classList.add('show')},500);setTimeout(()=>{storyPopup.classList.add('show')},2000)}function closePopup(){storyPopup.classList.remove('show')}function closeAndReset(){closeThanksBtn.classList.remove('show');finalEl.classList.remove('show');music.pause();music.currentTime=0;storyPopup.classList.remove('show');overlay.style.display='flex';overlay.style.opacity='1';textEl.style.display='block';textEl.className='dynamic-text';textEl.style.transition='none'}window.startExperience=startExperience;window.closePopup=closePopup;window.closeAndReset=closeAndReset;window.startExperience=startExperience;window.closePopup=closePopup;window.closeAndReset=closeAndReset;document.addEventListener('DOMContentLoaded',function(){overlay.addEventListener('click',startExperience);var closeBtn=document.querySelector('.close-btn');if(closeBtn)closeBtn.addEventListener('click',closePopup)});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JunglePod 🪴</title>
+    <style>
+        /* ====== CSS LENGKAP (SAMA SEPERTI SEBELUMNYA) ====== */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        :root { --bg-dark: #0f1412; --text-primary: #e8e6e1; --text-secondary: #9aa8a2; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background-color: var(--bg-dark); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-primary); }
+        .tropical-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('https://cdn.pixabay.com/photo/2021/06/20/14/23/tropical-6351119_1280.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1; }
+        .overlay-dark { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15,20,18,0.6); z-index: 2; pointer-events: none; }
+        .linen-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3; opacity: 0.06; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E"); animation: drift 60s linear infinite alternate; pointer-events: none; mix-blend-mode: overlay; }
+        @keyframes drift { 0% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(2%,1%) rotate(1deg); } 100% { transform: translate(-2%,-1%) rotate(-1deg); } }
+        .content-wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10; pointer-events: none; overflow: hidden; }
+        .dynamic-text { position: absolute; font-size: 4rem; font-weight: 300; letter-spacing: -0.01em; opacity: 0; text-shadow: 0 4px 30px rgba(0,0,0,0.5); white-space: nowrap; pointer-events: none; will-change: transform, opacity, top, left; }
+        .a-center { top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 5rem; font-weight: 400; transition: opacity 2.5s ease-in-out; }
+        .a-center.s { opacity: 1; }
+        .a-center.h { opacity: 0; }
+        .a-tlbr { top: 15%; left: 15%; transform: translate(0,0); font-size: 3.5rem; transition: all 2s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .a-tlbr.s { opacity: 1; }
+        .a-tlbr.h { opacity: 0; transform: translate(70vw,70vh); }
+        .a-trbl { top: 15%; right: 15%; transform: translate(0,0); font-size: 3.5rem; transition: all 2s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .a-trbl.s { opacity: 1; }
+        .a-trbl.h { opacity: 0; transform: translate(-70vw,70vh); }
+        .a-bc { top: 100vh; left: 50vw; transform: translate(-50%,-100%); font-size: 4.5rem; font-weight: 500; transition: all 2.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .a-bc.s { opacity: 1; top: 50vh; left: 50vw; transform: translate(-50%,-50%); }
+        .a-bc.h { opacity: 0; top: 50vh; left: 50vw; transform: translate(-50%,-50%); }
+        .final-message { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 1.4rem; font-weight: 400; font-style: italic; opacity: 0; transition: opacity 3s ease-in; color: var(--text-secondary); text-align: center; letter-spacing: 0.15em; pointer-events: none; width: 100%; margin-bottom: 40px; }
+        .final-message.show { opacity: 1; }
+        .close-thanks-btn { position: absolute; top: 60%; left: 50%; transform: translate(-50%,-50%); background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); padding: 8px 18px; border-radius: 40px; font-size: 0.9rem; font-weight: 300; letter-spacing: 0.5px; cursor: pointer; opacity: 0; transition: opacity 0.5s ease, background 0.3s, color 0.3s; pointer-events: none; z-index: 50; white-space: nowrap; }
+        .close-thanks-btn.show { opacity: 1; pointer-events: auto; }
+        .close-thanks-btn:hover { background: rgba(232,230,225,0.1); color: var(--text-primary); border-color: var(--text-primary); }
+        .story-popup { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15,20,18,0.85); backdrop-filter: blur(5px); z-index: 200; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s; pointer-events: none; overflow-y: auto !important; -webkit-overflow-scrolling: touch; }
+        .story-popup.show { opacity: 1; visibility: visible; pointer-events: auto; }
+        .story-content { background: rgba(30,35,33,0.9); border: 1px solid rgba(232,230,225,0.2); border-radius: 16px; padding: 2.5rem; max-width: 500px; width: 90%; margin: 20px auto; position: relative; color: var(--text-primary); box-shadow: 0 20px 40px rgba(0,0,0,0.4); backdrop-filter: blur(10px); max-height: 80vh !important; overflow-y: auto !important; }
+        .story-content p { margin-bottom: 1.2rem; line-height: 1.6; font-size: 1rem; font-weight: 300; letter-spacing: 0.02em; }
+        .story-content p.warkop { font-style: italic; color: var(--text-secondary); font-size: 0.95rem; }
+        .close-btn { position: absolute; top: 12px; right: 16px; background: none; border: none; color: var(--text-secondary); font-size: 1.8rem; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.3s; }
+        .close-btn:hover { color: var(--text-primary); }
+        #start-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15,20,18,0.95); z-index: 100; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: opacity 1s ease; }
+        #start-text { font-size: 0.95rem; letter-spacing: 4px; text-transform: uppercase; border: 1px solid var(--text-primary); padding: 20px 45px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; color: var(--text-primary); background: transparent; }
+        #start-text:hover { background: rgba(232,230,225,0.1); }
+        @media (max-width: 600px) {
+            .a-center { font-size: clamp(2.8rem, 8vw, 4rem) !important; white-space: nowrap !important; max-width: 95vw !important; left: 50% !important; transform: translate(-50%, -50%) !important; }
+            .a-tlbr, .a-trbl, .a-bc { font-size: 2.5rem !important; white-space: nowrap !important; max-width: 80vw !important; }
+            .final-message { top: 45% !important; margin-top: -10px; font-size: 1.2rem !important; }
+            .close-thanks-btn { top: 55% !important; font-size: 0.8rem !important; padding: 6px 14px !important; }
+            .story-popup { align-items: flex-start !important; padding-top: 2vh !important; }
+            .story-content { max-height: 70vh !important; margin: 2vh auto !important; padding: 1.5rem !important; }
+        }
+        @-moz-document url-prefix() {
+            .story-popup { overflow-y: scroll !important; }
+            .story-content { max-height: 70vh !important; overflow-y: scroll !important; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditative-ambient-11496.mp3" type="audio/mpeg">
+    </audio>
+    <div id="start-overlay" onclick="startExperience()">
+        <div id="start-text">Enter JunglePod</div>
+    </div>
+    <div class="tropical-bg"></div>
+    <div class="overlay-dark"></div>
+    <div class="linen-overlay"></div>
+    <div class="content-wrapper">
+        <div id="text-display" class="dynamic-text"></div>
+        <div id="final-display" class="final-message">JunglePod 🪴 — arriving in 2026</div>
+        <button id="close-thanks" class="close-thanks-btn" onclick="closeAndReset()">[x] close, terima kasih</button>
+        <div id="story-popup" class="story-popup">
+            <div class="story-content">
+                <button class="close-btn" onclick="closePopup()">×</button>
+                <p>Dari tanah ke kode. 🪴💻</p>
+                <p class="warkop">(Jadi nyanyian kode ala Warkop DKI 😁)</p>
+                <p>Setelah bertahun-tahun di JunglePod -Urban Living Eco Lab-, saatnya "nyebrang" ke dunia digital sebagai Indie Software Creator. Intro sederhana ini saya bangun sendiri, belajar pelan-pelan tentang koordinat, transisi, dan logika CSS.</p>
+                <p>Sovereign Timing Management & Eco Tech lainnya sedang dalam oven. Semoga rampung di 2026! 🚀</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const sequence = [
+            { text: "JunglePod 🪴", anim: "a-center" },
+            { text: "Indie",        anim: "a-tlbr" },
+            { text: "Software",     anim: "a-trbl" },
+            { text: "Creator",      anim: "a-bc" }
+        ];
+        const textEl = document.getElementById('text-display');
+        const finalEl = document.getElementById('final-display');
+        const music = document.getElementById('bg-music');
+        const overlay = document.getElementById('start-overlay');
+        const storyPopup = document.getElementById('story-popup');
+        const closeThanksBtn = document.getElementById('close-thanks');
+        music.volume = 0.4;
+        async function startExperience() {
+            try { await music.play(); } catch(e) {}
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                setTimeout(() => run(0), 500);
+            }, 1000);
+        }
+        function run(i) {
+            if (i >= sequence.length) { final(); return; }
+            const { text, anim } = sequence[i];
+            textEl.style.transition = 'none';
+            textEl.className = 'dynamic-text ' + anim;
+            textEl.textContent = text;
+            void textEl.offsetWidth;
+            textEl.style.transition = '';
+            setTimeout(() => textEl.classList.add('s'), 20);
+            const stay = Math.random() * 1500 + 2500;
+            let hideDuration = (anim === 'a-center' || anim === 'a-bc') ? 2500 : 2000;
+            setTimeout(() => {
+                textEl.classList.remove('s');
+                textEl.classList.add('h');
+                setTimeout(() => run(i + 1), hideDuration);
+            }, stay);
+        }
+        function final() {
+            textEl.style.display = 'none';
+            finalEl.classList.add('show');
+            setTimeout(() => {
+                closeThanksBtn.classList.add('show');
+            }, 500);
+            setTimeout(() => {
+                storyPopup.classList.add('show');
+            }, 2000);
+        }
+        function closePopup() {
+            storyPopup.classList.remove('show');
+        }
+        function closeAndReset() {
+            closeThanksBtn.classList.remove('show');
+            finalEl.classList.remove('show');
+            music.pause();
+            music.currentTime = 0;
+            storyPopup.classList.remove('show');
+            overlay.style.display = 'flex';
+            overlay.style.opacity = '1';
+            textEl.style.display = 'block';
+            textEl.className = 'dynamic-text';
+            textEl.style.transition = 'none';
+        }
+        window.startExperience = startExperience;
+        window.closePopup = closePopup;
+        window.closeAndReset = closeAndReset;
+    </script>
+</body>
+</html>
