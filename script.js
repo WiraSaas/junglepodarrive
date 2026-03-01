@@ -79,3 +79,6 @@ window.closeAndReset = closeAndReset;
 window.startExperience = startExperience;
 window.closePopup = closePopup;
 window.closeAndReset = closeAndReset;
+document.addEventListener('DOMContentLoaded', function() {
+    overlay.addEventListener('click', startExperience);
+});
