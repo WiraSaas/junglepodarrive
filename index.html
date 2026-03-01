@@ -108,7 +108,7 @@
 
         /* Creator - dari bawah ke tengah, lalu fade di tempat */
         .a-bc {
-            top: 100vh;          /* mulai dari bawah layar */
+            top: 100vh;
             left: 50vw;
             transform: translate(-50%, -100%);
             font-size: 4.5rem; font-weight: 500;
@@ -116,12 +116,12 @@
         }
         .a-bc.s {
             opacity: 1;
-            top: 50vh;           /* naik ke tengah */
+            top: 50vh;
             left: 50vw;
             transform: translate(-50%, -50%);
         }
         .a-bc.h {
-            opacity: 0;           /* tetap di tengah, hanya fade */
+            opacity: 0;
             top: 50vh;
             left: 50vw;
             transform: translate(-50%, -50%);
@@ -136,7 +136,7 @@
             opacity: 0; transition: opacity 3s ease-in;
             color: var(--text-secondary); text-align: center;
             letter-spacing: 0.15em; pointer-events: none; width: 100%;
-            margin-bottom: 40px; /* beri jarak untuk tombol */
+            margin-bottom: 40px;
         }
         .final-message.show { opacity: 1; }
 
@@ -263,33 +263,37 @@
         #start-text:hover { background: rgba(232, 230, 225, 0.1); }
 
         /* ============================================
-           PERBAIKAN UNTUK HP DAN FIREFOX
+           PERBAIKAN RESPONSIF UNTUK HP
            ============================================ */
         @media (max-width: 600px) {
-            /* Teks animasi utama agar tidak terpotong */
+            /* Teks JunglePod dipaksa satu baris dengan ukuran proporsional */
             .a-center {
-                font-size: 3rem !important;
-                white-space: normal !important;
-                word-break: break-word;
-                max-width: 90vw;
-                line-height: 1.2;
+                font-size: clamp(2.8rem, 8vw, 4rem) !important;
+                white-space: nowrap !important;   /* Satu baris */
+                max-width: 95vw !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
             }
+            /* Teks animasi lainnya juga disesuaikan */
             .a-tlbr, .a-trbl, .a-bc {
-                font-size: 2.5rem;
-                white-space: normal;
-                max-width: 80vw;
+                font-size: 2.5rem !important;
+                white-space: nowrap !important;
+                max-width: 80vw !important;
             }
 
             /* Naikkan posisi teks akhir dan tombol */
             .final-message {
                 top: 45% !important;
                 margin-top: -10px;
+                font-size: 1.2rem !important;
             }
             .close-thanks-btn {
                 top: 55% !important;
+                font-size: 0.8rem !important;
+                padding: 6px 14px !important;
             }
 
-            /* Perbaiki pop-up agar bisa di-scroll di Firefox */
+            /* Perbaiki pop-up agar bisa di-scroll di semua browser */
             .story-popup {
                 align-items: flex-start !important;
                 padding-top: 5vh !important;
@@ -300,6 +304,7 @@
                 overflow-y: auto !important;
                 margin: 10vh auto !important;
                 width: 90% !important;
+                padding: 1.5rem !important;
             }
         }
     </style>
@@ -367,11 +372,11 @@
             if (i >= sequence.length) { final(); return; }
             const { text, anim } = sequence[i];
 
-            // --- RESET DENGAN TRANSISI DIMATIKAN SEMENTARA ---
+            // Reset transisi agar tidak bergerak dari posisi sebelumnya
             textEl.style.transition = 'none';
             textEl.className = 'dynamic-text ' + anim;
             textEl.textContent = text;
-            void textEl.offsetWidth;
+            void textEl.offsetWidth; // force reflow
             textEl.style.transition = '';
 
             // Munculkan
@@ -379,16 +384,12 @@
 
             // Durasi tampil acak (2.5 - 4 detik)
             const stay = Math.random() * 1500 + 2500;
-
-            // Tentukan durasi hide sesuai animasi
             let hideDuration = (anim === 'a-center' || anim === 'a-bc') ? 2500 : 2000;
 
             // Hilangkan setelah stay
             setTimeout(() => {
                 textEl.classList.remove('s');
                 textEl.classList.add('h');
-
-                // Panggil berikutnya setelah animasi hide selesai
                 setTimeout(() => run(i + 1), hideDuration);
             }, stay);
         }
@@ -397,7 +398,7 @@
             textEl.style.display = 'none';
             finalEl.classList.add('show');
             
-            // Munculkan tombol close
+            // Munculkan tombol close setelah 0,5 detik
             setTimeout(() => {
                 closeThanksBtn.classList.add('show');
             }, 500);
@@ -408,29 +409,20 @@
             }, 2000);
         }
 
-        // Fungsi untuk tombol close di pop-up (×)
+        // Tutup pop-up dengan tombol ×
         function closePopup() {
             storyPopup.classList.remove('show');
         }
 
-        // Fungsi untuk tombol "[x] close, terima kasih"
+        // Tombol [x] close, terima kasih → reset ke awal
         function closeAndReset() {
-            // Sembunyikan tombol dan teks akhir
             closeThanksBtn.classList.remove('show');
             finalEl.classList.remove('show');
-            
-            // Hentikan musik dan reset
             music.pause();
             music.currentTime = 0;
-            
-            // Sembunyikan pop-up
             storyPopup.classList.remove('show');
-            
-            // Tampilkan overlay start
             overlay.style.display = 'flex';
             overlay.style.opacity = '1';
-            
-            // Siapkan elemen teks untuk animasi berikutnya
             textEl.style.display = 'block';
             textEl.className = 'dynamic-text';
             textEl.style.transition = 'none';
