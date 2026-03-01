@@ -175,6 +175,8 @@
             color: var(--text-primary);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .story-content p {
@@ -213,6 +215,39 @@
             color: var(--text-primary);
         }
 
+        /* Tombol close terima kasih */
+        .close-thanks-btn {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.5s ease, background 0.3s, color 0.3s;
+            pointer-events: none;
+            z-index: 50;
+            white-space: nowrap;
+        }
+
+        .close-thanks-btn.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .close-thanks-btn:hover {
+            background: rgba(232, 230, 225, 0.1);
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
         #start-overlay {
             position: fixed; top: 0; left: 0;
             width: 100vw; height: 100vh;
@@ -227,6 +262,43 @@
             font-weight: 500; color: var(--text-primary); background: transparent;
         }
         #start-text:hover { background: rgba(232, 230, 225, 0.1); }
+
+        /* Media queries untuk HP */
+        @media (max-width: 600px) {
+            .dynamic-text {
+                white-space: normal;
+                word-break: break-word;
+                max-width: 90vw;
+                text-align: center;
+                font-size: clamp(2rem, 10vw, 4rem);
+            }
+            .a-center {
+                font-size: 3rem;
+            }
+            .a-tlbr, .a-trbl {
+                font-size: 2.5rem;
+                top: 10%;
+                left: 10%;
+                right: 10%;
+            }
+            .a-bc {
+                font-size: 3rem;
+            }
+            .final-message {
+                font-size: 1rem;
+                padding: 0 20px;
+                white-space: normal;
+            }
+            .close-thanks-btn {
+                top: 65%;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .story-content {
+                padding: 1.5rem;
+                max-width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -246,6 +318,9 @@
     <div class="content-wrapper">
         <div id="text-display" class="dynamic-text"></div>
         <div id="final-display" class="final-message">JunglePod 🪴 — arriving in 2026</div>
+        
+        <!-- Tombol close terima kasih -->
+        <button id="close-thanks" class="close-thanks-btn" onclick="closeAndReset()">[x] close, terima kasih</button>
         
         <!-- Pop-up Story -->
         <div id="story-popup" class="story-popup">
@@ -272,6 +347,7 @@
         const music = document.getElementById('bg-music');
         const overlay = document.getElementById('start-overlay');
         const storyPopup = document.getElementById('story-popup');
+        const closeThanksBtn = document.getElementById('close-thanks');
 
         music.volume = 0.4;
 
@@ -318,15 +394,46 @@
             textEl.style.display = 'none';
             finalEl.classList.add('show');
             
+            // Munculkan tombol close setelah teks akhir tampil
+            setTimeout(() => {
+                closeThanksBtn.classList.add('show');
+            }, 500);
+            
             // Munculkan pop-up setelah 2 detik
             setTimeout(() => {
                 storyPopup.classList.add('show');
             }, 2000);
         }
 
-        // Fungsi untuk menutup pop-up
+        // Fungsi untuk menutup pop-up (tombol x di dalam pop-up)
         function closePopup() {
             storyPopup.classList.remove('show');
+        }
+
+        // Fungsi untuk close dan reset ke awal (tombol di bawah teks akhir)
+        function closeAndReset() {
+            // Sembunyikan tombol & teks akhir
+            closeThanksBtn.classList.remove('show');
+            finalEl.classList.remove('show');
+            
+            // Hentikan & reset musik
+            music.pause();
+            music.currentTime = 0;
+            
+            // Sembunyikan pop-up
+            storyPopup.classList.remove('show');
+            
+            // Tampilkan overlay start
+            overlay.style.display = 'flex';
+            overlay.style.opacity = '1';
+            
+            // Siapkan elemen teks untuk animasi berikutnya
+            textEl.style.display = 'block';
+            textEl.className = 'dynamic-text';
+            textEl.style.transition = 'none';
+            
+            // Reset class apapun yang mungkin tertinggal
+            textEl.classList.remove('s', 'h');
         }
     </script>
 </body>
